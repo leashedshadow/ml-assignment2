@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "bagging fixes tree",
+    "test_index": 72,
+    "true": 36,
+    "tree_pred": 14,
+    "tree_conf": 1.0,
+    "bag_top3_votes": {
+      "36": 101,
+      "33": 17,
+      "18": 16
+    },
+    "votes_for_true_class": 101,
+    "B": 200
+  },
+  {
+    "kind": "bagging fixes tree",
+    "test_index": 53,
+    "true": 26,
+    "tree_pred": 9,
+    "tree_conf": 1.0,
+    "bag_top3_votes": {
+      "26": 100,
+      "9": 13,
+      "13": 11
+    },
+    "votes_for_true_class": 100,
+    "B": 200
+  },
+  {
+    "kind": "both wrong",
+    "test_index": 18,
+    "true": 9,
+    "tree_pred": 34,
+    "tree_conf": 1.0,
+    "bag_top3_votes": {
+      "24": 59,
+      "9": 44,
+      "8": 13
+    },
+    "votes_for_true_class": 44,
+    "B": 200
+  },
+  {
+    "kind": "both wrong",
+    "test_index": 32,
+    "true": 16,
+    "tree_pred": 6,
+    "tree_conf": 1.0,
+    "bag_top3_votes": {
+      "6": 48,
+      "16": 22,
+      "20": 19
+    },
+    "votes_for_true_class": 22,
+    "B": 200
+  }
+]

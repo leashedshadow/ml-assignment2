@@ -1,0 +1,29 @@
+{
+  "test_index": 20,
+  "true": 10,
+  "bag_clean": [
+    10,
+    0.62
+  ],
+  "bag_masked": [
+    10,
+    0.375
+  ],
+  "boost_clean": [
+    12,
+    0.07982154681457894
+  ],
+  "boost_masked": [
+    20,
+    0.07238208429712625
+  ],
+  "bag_trees_changed_pred": 0.43,
+  "bag_pairwise_disagreement_masked": 0.8147738693467337,
+  "bag_masked_path_share": 0.062266996439923596,
+  "boost_alpha_mass_changed_pred": 0.09955163391285522,
+  "boost_masked_path_share": 0.05078094527941761,
+  "boost_final_weight_on_true_identity": 0.013785620779935734,
+  "uniform_share": 0.025,
+  "bag_overall_masked_split_share": 0.0717971371984267,
+  "boost_overall_masked_split_share": 0.06183720649502404
+}

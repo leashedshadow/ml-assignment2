@@ -1,0 +1,5 @@
+model,test,acc,mean_conf
+single tree,clean,0.4625,1.0
+single tree,masked,0.2625,1.0
+bagging,clean,0.8625,0.37875
+bagging,masked,0.475,0.25325

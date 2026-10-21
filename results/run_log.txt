@@ -1,0 +1,135 @@
+seed = 26510
+train/val/test sizes: 240 80 80
+
+===== Q1(a) single decision tree =====
+    max_depth  min_samples_leaf   train     val    test  actual_depth  n_leaves  mean_samples_per_leaf  frac_singleton_leaves
+0         2.0                 1  0.0750  0.0750  0.0625             2         3                80.0000                 0.0000
+1         2.0                 2  0.0750  0.0750  0.0625             2         3                80.0000                 0.0000
+2         2.0                 4  0.0750  0.0750  0.0625             2         3                80.0000                 0.0000
+3         4.0                 1  0.1250  0.1125  0.0625             4         5                48.0000                 0.0000
+4         4.0                 2  0.1250  0.1125  0.0625             4         5                48.0000                 0.0000
+5         4.0                 4  0.1250  0.1125  0.0625             4         5                48.0000                 0.0000
+6         8.0                 1  0.2250  0.1875  0.1375             8         9                26.6667                 0.0000
+7         8.0                 2  0.2250  0.1875  0.1375             8         9                26.6667                 0.0000
+8         8.0                 4  0.2250  0.1875  0.1375             8         9                26.6667                 0.0000
+9        16.0                 1  0.4250  0.3125  0.2625            16        17                14.1176                 0.0000
+10       16.0                 2  0.4250  0.3125  0.2625            16        17                14.1176                 0.0000
+11       16.0                 4  0.4250  0.3125  0.2625            16        17                14.1176                 0.0000
+12        NaN                 1  1.0000  0.6000  0.4625            36        46                 5.2174                 0.1304
+13        NaN                 2  0.9792  0.5875  0.4625            35        45                 5.3333                 0.0000
+14        NaN                 4  0.9750  0.5875  0.5000            34        40                 6.0000                 0.0000
+FROZEN tree setting: {'max_depth': None, 'min_samples_leaf': 1}
+
+===== Q1(b),(c) bagging =====
+     B   train     val    test  distinct_per_bootstrap  theory_distinct  oob_acc  oob_coverage  disagreement_val  mean_margin_val
+0    1  0.7542  0.3125  0.3875                 141.000         151.8932   0.4040        0.4125               NaN           1.0000
+1    5  0.9750  0.6375  0.6375                 147.000         151.8932   0.3453        0.9292            0.8125           0.2425
+2   10  0.9958  0.7250  0.7875                 149.100         151.8932   0.4184        0.9958            0.7789           0.2625
+3   25  1.0000  0.8500  0.8375                 150.400         151.8932   0.5792        1.0000            0.7798           0.2675
+4   50  1.0000  0.8875  0.8625                 151.100         151.8932   0.7167        1.0000            0.7743           0.2855
+5  100  1.0000  0.8875  0.8625                 151.380         151.8932   0.7667        1.0000            0.7743           0.2924
+6  200  1.0000  0.9375  0.8625                 152.235         151.8932   0.8167        1.0000            0.7748           0.2949
+FINAL bagging size B = 200
+
+===== Q1(d) tree vs bagging, clean & masked =====
+         model    test     acc  mean_conf
+0  single tree   clean  0.4625     1.0000
+1  single tree  masked  0.2625     1.0000
+2      bagging   clean  0.8625     0.3787
+3      bagging  masked  0.4750     0.2532
+{'kind': 'bagging fixes tree', 'test_index': 72, 'true': 36, 'tree_pred': 14, 'tree_conf': 1.0, 'bag_top3_votes': {36: 101, 33: 17, 18: 16}, 'votes_for_true_class': 101, 'B': 200}
+{'kind': 'bagging fixes tree', 'test_index': 53, 'true': 26, 'tree_pred': 9, 'tree_conf': 1.0, 'bag_top3_votes': {26: 100, 9: 13, 13: 11}, 'votes_for_true_class': 100, 'B': 200}
+{'kind': 'both wrong', 'test_index': 18, 'true': 9, 'tree_pred': 34, 'tree_conf': 1.0, 'bag_top3_votes': {24: 59, 9: 44, 8: 13}, 'votes_for_true_class': 44, 'B': 200}
+{'kind': 'both wrong', 'test_index': 32, 'true': 16, 'tree_pred': 6, 'tree_conf': 1.0, 'bag_top3_votes': {6: 48, 16: 22, 20: 19}, 'votes_for_true_class': 22, 'B': 200}
+
+===== Q2(a) toy SAMME round (same function as faces) =====
+--- round 1 ---
+weights used     : [0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111]
+true labels      : [0 0 0 1 1 1 2 2 2]
+weak predictions : [0 0 0 1 1 1 0 0 0]
+weighted error   : 0.3333
+alpha            : 1.3863  = log((1-err)/err)+log(K-1)
+updated weights  : [0.0556 0.0556 0.0556 0.0556 0.0556 0.0556 0.2222 0.2222 0.2222] (sum=1.0000)
+--- round 2 ---
+weights used     : [0.0556 0.0556 0.0556 0.0556 0.0556 0.0556 0.2222 0.2222 0.2222]
+true labels      : [0 0 0 1 1 1 2 2 2]
+weak predictions : [0 0 0 0 0 0 2 2 2]
+weighted error   : 0.1667
+alpha            : 2.3026  = log((1-err)/err)+log(K-1)
+updated weights  : [0.0222 0.0222 0.0222 0.2222 0.2222 0.2222 0.0889 0.0889 0.0889] (sum=1.0000)
+--- round 3 ---
+weights used     : [0.0222 0.0222 0.0222 0.2222 0.2222 0.2222 0.0889 0.0889 0.0889]
+true labels      : [0 0 0 1 1 1 2 2 2]
+weak predictions : [2 2 2 1 1 1 2 2 2]
+weighted error   : 0.0667
+alpha            : 3.3322  = log((1-err)/err)+log(K-1)
+updated weights  : [0.2222 0.2222 0.2222 0.0794 0.0794 0.0794 0.0317 0.0317 0.0317] (sum=1.0000)
+
+toy ensemble predictions: [0 0 0 1 1 1 2 2 2]  truth: [0 0 0 1 1 1 2 2 2]
+
+===== Q2(b) boosting grid =====
+    depth  rounds  rounds_used   train     val    test
+0       1      10           10  0.0500  0.0500  0.0500
+1       1      25           25  0.0500  0.0500  0.0500
+2       1      50           50  0.1375  0.0875  0.0625
+3       1     100          100  0.1958  0.1375  0.1125
+4       2      10           10  0.0875  0.0750  0.0250
+5       2      25           25  0.2167  0.1375  0.1250
+6       2      50           50  0.2542  0.1000  0.1375
+7       2     100          100  0.3542  0.1750  0.1500
+8       3      10           10  0.1667  0.1125  0.1125
+9       3      25           25  0.3000  0.1625  0.1250
+10      3      50           50  0.5375  0.2000  0.2375
+11      3     100          100  0.9875  0.4375  0.4125
+12      4      10           10  0.3292  0.1875  0.1625
+13      4      25           25  0.8708  0.3375  0.4125
+14      4      50           50  0.9500  0.4250  0.3625
+15      4     100          100  1.0000  0.4375  0.4500
+SELECTED boosting: depth=3, rounds=100
+
+===== Q2(c) boosting vs bagging, 25/50/100 learners =====
+      model    T   train     val    test  train_time_s
+0   bagging   25  1.0000  0.8125  0.7750       57.6478
+1  boosting   25  0.3000  0.1625  0.1250       12.6308
+2   bagging   50  1.0000  0.8500  0.8500      113.8495
+3  boosting   50  0.5375  0.2000  0.2375       25.0684
+4   bagging  100  1.0000  0.9250  0.8625      229.8996
+5  boosting  100  0.9875  0.4375  0.4125       50.6349
+heaviest training face: {'train_index': 205, 'true': 34, 'final_weight': 0.031737129790297296, 'uniform_weight': 0.004166666666666667, 'frac_rounds_misclassified': 0.91, 'most_predicted_wrong_class': 39, 'wrong_class_counts': {0: 1, 1: 2, 2: 7, 3: 8, 4: 3, 6: 1, 7: 1, 8: 8, 11: 2, 12: 8, 14: 6, 15: 2, 16: 3, 17: 6, 20: 6, 22: 3, 23: 3, 24: 1, 25: 5, 27: 1, 28: 1, 30: 1, 35: 1, 36: 1, 39: 10}}
+
+===== Q2(d) tree vs bagging vs boosting, clean & masked =====
+   model    test     acc  mean_win_conf
+0   tree   clean  0.4625         1.0000
+1    bag   clean  0.8625         0.3787
+2  boost   clean  0.4125         0.0934
+3   tree  masked  0.2625         1.0000
+4    bag  masked  0.4750         0.2532
+5  boost  masked  0.4000         0.0902
+differing face: {'test_index': 20, 'true': 10, 'bag_clean': (10, 0.62), 'bag_masked': (10, 0.375), 'boost_clean': (12, 0.07982154681457894), 'boost_masked': (20, 0.07238208429712625), 'bag_trees_changed_pred': 0.43, 'bag_pairwise_disagreement_masked': 0.8147738693467337, 'bag_masked_path_share': 0.062266996439923596, 'boost_alpha_mass_changed_pred': 0.09955163391285522, 'boost_masked_path_share': 0.05078094527941761, 'boost_final_weight_on_true_identity': 0.013785620779935734, 'uniform_share': 0.025, 'bag_overall_masked_split_share': 0.0717971371984267, 'boost_overall_masked_split_share': 0.06183720649502404}
+
+===== Q3 bias / variance =====
+-- Q3(a) selected tree, bagging(final B), boosting
+         model  clean_acc_mean  clean_acc_std  masked_acc_mean  masked_acc_std  bias2_clean  var_clean  bias2_masked  var_masked  mse_check_clean
+0  single tree          0.4379         0.0385           0.2388          0.1125       0.4640     0.6602        0.8863      0.6362           1.1242
+1      bagging          0.7579         0.0329           0.4704          0.1274       0.5228     0.0225        0.7429      0.0202           0.5452
+2     boosting          0.2017         0.0492           0.1700          0.0605       0.9174     0.0168        0.9222      0.0178           0.9341
+-- Q3(b) depth study, 100-tree bagged ensembles
+                                  0             1                            2
+setting                     shallow  intermediate  selected=None (fully grown)
+max_depth                       2.0           8.0                          NaN
+mean_actual_depth               2.0           8.0                      34.6667
+tree_acc                     0.0638        0.1683                       0.4379
+bag_acc                      0.1321        0.4288                       0.7462
+acc_gain                     0.0683        0.2604                       0.3083
+tree_bias2                     0.92        0.7928                        0.464
+bag_bias2                    0.9331        0.8138                        0.523
+tree_var                       0.04        0.1374                       0.6602
+bag_var                      0.0113        0.0178                       0.0264
+var_removed                  0.0287        0.1196                       0.6338
+var_removed_pct             71.7724         87.06                      96.0031
+tree_mean_samples_per_leaf  79.3333       25.2202                       5.9951
+tree_frac_singleton             0.0           0.0                       0.0008
+bag_mean_samples_per_leaf   77.2533       22.7194                       5.1518
+bag_pairwise_disagreement     0.961         0.928                       0.8173
+
+DONE. Everything is in results

@@ -1,0 +1,7 @@
+model,test,acc,mean_win_conf
+tree,clean,0.4625,1.0
+bag,clean,0.8625,0.37875
+boost,clean,0.4125,0.0934136921407163
+tree,masked,0.2625,1.0
+bag,masked,0.475,0.25325
+boost,masked,0.4,0.0901869869095159
